@@ -50,7 +50,7 @@ def post_claim_task(token, task, proxies):
 def main():
     token_file_path = '/tmp/synacktoken'
     token = read_token_from_file(token_file_path)
-    #proxies = {"http": "http://127.0.0.1:8080", "https": "http://127.0.0.1:8080"}
+    proxies = {}
 
     while True:
         tasks = get_tasks(token, proxies)
