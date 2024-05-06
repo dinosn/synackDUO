@@ -25,10 +25,10 @@ pip install -r requirements.txt
 ## Using synconnect (Selenium-based token generation)
 ### Preparation
 1. Complete the ruo setup.
-2. In `synconnect.py`, update your credentials at lines 11 and 12.
+2. In `synconnect.py`, update your credentials at lines 12 and 13.
 3. To run in headless mode (without opening a browser window), set `options.headless = True` on line 37.
 4. (Optional) Customize Token Storage Location
-   - To save the token in a different location, modify the `file_path` on line 15.
+   - To save the token in a different location, modify the `file_path` on line 16.
    - By default, the token is stored in `/tmp/synacktoken`.
 
 ### Running the Script
@@ -41,7 +41,7 @@ python3 synconnect.py
 ### Initial Setup
 1. After setting up ruo, capture the login process with Burp Suite.
 2. Locate the `/frame/v4/auth/prompt/data` request and note down the index and key from its response.
-3. Update `synconnect_cli.py` with your credentials on lines 11 and 12.
+3. Update `synconnect_cli.py` with your credentials on lines 12 and 13.
 4. Set the `index` (e.g., `phone2`) on line 16 and `key` (e.g., `DPXXXXXXXXXX`) on line 17.
 5. (Optional) Customize Token Storage Location
    - To save the token in a different location, modify the `file_path` on line 18.
@@ -65,6 +65,6 @@ python3 mission.py
 ```
 If you want to use it standalone as a script and provide your own token, comment out the following lines.  Token is always read from /tmp/synacktoken.
 ```
- 70                   subprocess.run(["python3", "synconnect_cli.py"])
- 71                   token = read_token_from_file(token_file_path)
+ 71                   subprocess.run(["python3", "synconnect_cli.py"])
+ 72                   token = read_token_from_file(token_file_path)
 ```
