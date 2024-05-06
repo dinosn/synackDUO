@@ -14,6 +14,13 @@ pip install -r requirements.txt
 ## Setting up ruo
 1. Execute `main.py`.
 2. Enter the code from the QR code (use an alternative QR code scanner) or via the link provided in the email (accessible on a desktop).
+  The proceess in screenshots is similar to this:
+  
+<img width="272" alt="Screenshot 2024-05-06 at 05 48 56" src="https://github.com/dinosn/synackDUO/assets/3851678/4e9435fa-8b9e-4800-9f68-75ffacf6e898"> ,
+<img width="300" alt="Screenshot 2024-05-06 at 05 50 15" src="https://github.com/dinosn/synackDUO/assets/3851678/1f566215-f124-4c43-b701-8b5dc66613bb"> , 
+<img width="260" alt="Screenshot 2024-05-06 at 05 50 47" src="https://github.com/dinosn/synackDUO/assets/3851678/27333bad-c874-47b2-ba33-78a50d2e1137"> , 
+<img width="260" alt="Screenshot 2024-05-06 at 05 51 03" src="https://github.com/dinosn/synackDUO/assets/3851678/313ac430-3257-4bce-9075-2c191fc207c9"> , 
+<img width="274" alt="Screenshot 2024-05-06 at 05 51 12" src="https://github.com/dinosn/synackDUO/assets/3851678/5146f0c3-b918-4cba-adcc-7a2ec04f54ae"> .
 
 ## Using synconnect (Selenium-based token generation)
 ### Preparation
