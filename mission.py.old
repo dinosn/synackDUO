@@ -3,6 +3,10 @@ import time
 import urllib3
 import subprocess
 
+#
+#  Use the other script, missions_auto_register.py, for missions that will register all targets every 5 minutes.  Don't use this script.
+#
+
 # Suppress only the single InsecureRequestWarning from urllib3 needed for `verify=False`.
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
