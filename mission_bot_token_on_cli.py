@@ -37,11 +37,39 @@ def post_claim_task(token, task_info, proxies):
     response = requests.post(url, json=payload, headers=headers, proxies=proxies, verify=False)
     return response
 
-def check_response_for_auth_failure(response):
-    """Checks if the response indicates an authentication failure such as token expiration."""
-    if response.status_code == 401:
-        return True
-    return False
+def poll_unregistered_targets(token, proxies, known_slugs):
+    """Polls for unregistered targets every 5 minutes and signs up for new ones."""
+    while True:
+        url = "https://platform.synack.com/api/targets?filter%5Bprimary%5D=unregistered&filter%5Bsecondary%5D=all&filter%5Bcategory%5D=all&filter%5Bindustry%5D=all&filter%5Bpayout_status%5D=all&sorting%5Bfield%5D=onboardedAt&sorting%5Bdirection%5D=desc&pagination%5Bpage%5D=1&pagination%5Bper_page%5D=15"
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
+        response = requests.get(url, headers=headers, proxies=proxies, verify=False)
+        if response.status_code == 200:
+            targets = response.json()
+            for target in targets:
+                slug = target['slug']
+                if slug not in known_slugs:
+                    known_slugs.add(slug)
+                    signup_target(token, slug, proxies)
+        elif response.status_code == 401:
+            token = refresh_token()  # Handle token expiration
+        time.sleep(300)  # Poll every 5 minutes
+
+def signup_target(token, slug, proxies):
+    """Performs POST request to sign up for a target using its slug."""
+    url = f"https://platform.synack.com/api/targets/{slug}/signup"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+    payload = {"ResearcherListing": {"terms": 1}}
+    response = requests.post(url, json=payload, headers=headers, proxies=proxies, verify=False)
+    if response.status_code == 200:
+        print(f"Signed up for target {slug} successfully.")
+    else:
+        print(f"Failed to sign up for target {slug}. Status code: {response.status_code}, Response: {response.text}")
 
 def refresh_token():
     """Prompts the user to enter a new token."""
@@ -52,20 +80,22 @@ def main(token):
     proxies = {}
     known_slugs = set()
 
+    # Start the thread for polling unregistered targets
+    target_thread = Thread(target=poll_unregistered_targets, args=(token, proxies, known_slugs))
+    target_thread.start()
+
     while True:
         get_response = get_task(token, proxies)
-        if check_response_for_auth_failure(get_response):
-            token = refresh_token()  # Update the token if it's expired
-            continue  # Retry the last operation with the new token
-
+        if get_response.status_code == 401:
+            token = refresh_token()  # Handle token expiration
+            continue
         if get_response.status_code == 200:
             tasks = get_response.json()
             for task in tasks:
                 post_response = post_claim_task(token, task, proxies)
-                if check_response_for_auth_failure(post_response):
-                    token = refresh_token()  # Update the token if it's expired
-                    continue  # Retry the last operation with the new token
-                
+                if post_response.status_code == 401:
+                    token = refresh_token()  # Handle token expiration
+                    continue
                 if post_response.status_code == 201:
                     print("Mission claimed successfully.")
                 elif post_response.status_code == 412:
