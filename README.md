@@ -68,3 +68,10 @@ If you want to use it standalone as a script and provide your own token, comment
  71                   subprocess.run(["python3", "synconnect_cli.py"])
  72                   token = read_token_from_file(token_file_path)
 ```
+
+### Mission Bot [mission_bot_token_on_cli.py]
+Usage:
+```
+python3 mission_bot_token_on_cli.py 'TOKEN'
+```
+Your token can be found on your browser when you are logged in in the platform under the name `shared-session-com.synack.accessToken`
