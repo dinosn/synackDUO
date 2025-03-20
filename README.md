@@ -22,6 +22,10 @@ pip install -r requirements.txt
 <img width="260" alt="Screenshot 2024-05-06 at 05 51 03" src="https://github.com/dinosn/synackDUO/assets/3851678/313ac430-3257-4bce-9075-2c191fc207c9"> , 
 <img width="274" alt="Screenshot 2024-05-06 at 05 51 12" src="https://github.com/dinosn/synackDUO/assets/3851678/5146f0c3-b918-4cba-adcc-7a2ec04f54ae"> .
 
+You need this token which must be passed to main.py, do `not` press the Activate DUO Mobile, you only need the token.
+<img width="1392" alt="Screenshot 2025-03-17 at 19 27 39" src="https://github.com/user-attachments/assets/a46a89b1-4c87-4080-9c35-040eb339b527" />
+
+
 ## Using synconnect (Selenium-based token generation)
 ### Preparation
 1. Complete the ruo setup.
