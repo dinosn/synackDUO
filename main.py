@@ -92,7 +92,7 @@ class Client:
             # set up URL parameters
             # taken from https://github.com/FreshSupaSulley/DuOSU
             params = {"customer_protocol": "1", "pubkey": self.pubkey.publickey().export_key("PEM").decode('ascii'), "pkpush": "rsa-sha512", "jailbroken": "false", "architecture": "arm64", "region": "US", "app_id": "com.duosecurity.duomobile", "full_disk_encryption": "true",
-                      "passcode_status": "true", "platform": "Android", "app_version": "3.49.0", "app_build_number": "323001", "version": "11", "manufacturer": "unknown", "language": "en", "model": "Browser Extension", "security_patch_level": "2021-02-01"}
+                      "passcode_status": "true", "platform": "Android", "app_version": "4.108.0", "app_build_number": "410820", "version": "11", "manufacturer": "unknown", "language": "en", "model": "Browser Extension", "security_patch_level": "2026-02-01"}
             # send activation request
             r = requests.post(
                 f"https://{self.host}/push/v2/activation/{self.code}", params=params)
